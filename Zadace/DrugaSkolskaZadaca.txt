@@ -1,0 +1,50 @@
+1.
+
+LDX #$01
+STX $0200
+LDY #$04
+STY $0201
+
+JSR ADD
+STA $0210
+JSR SUB
+STA $0211
+
+ADD:
+CLC
+LDA $0200
+ADC $0201
+RTS
+
+SUB:
+CLC
+LDA $0200
+SBC $0201
+RTS
+----------------------------------
+2.
+
+CLC
+LDX #$00
+LDY #$f0
+
+FILL_20:
+TYA
+STA $20, X
+PHA
+INY
+INX
+CPX #$10
+BNE FILL_20
+
+LDY #$00
+
+FILL_30:
+PLA
+TAX
+STX $30, Y
+DEX
+INY
+CPY #$10
+BNE FILL_30
+
